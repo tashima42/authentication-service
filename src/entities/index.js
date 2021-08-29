@@ -1,10 +1,18 @@
-import uuidHelper from "../utils/uuidHelper"
-import passwordHelper from "../utils/passwordHelper"
+import buildUuidHelper from "../utils/uuidHelper"
+import buildPasswordHelper from "../utils/passwordHelper"
+import buildEmailHelper from "../utils/emailHelper"
 
-import buildUser from "./user"
+import buildUser from "./User"
+import buildKey from "./Key"
 
-const user = buildUser({ uuidHelper, passwordHelper })
+const uuidHelper = buildUuidHelper()
+const passwordHelper = buildPasswordHelper()
+const emailHelper = buildEmailHelper()
+
+const User = buildUser({ uuidHelper, passwordHelper, emailHelper })
+const Key = buildKey({ uuidHelper })
 
 export {
-  user
+  User,
+  Key,
 }
