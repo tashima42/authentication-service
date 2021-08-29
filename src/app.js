@@ -1,17 +1,49 @@
 import express from "express"
 import cors from "cors"
+
+import buildJwtHelper from "./utils/jwtHelper"
+import callback from "./utils/expressCallback"
+
+import {
+  AuthorizeUser,
+  CreateUser,
+  RefreshToken,
+  CreateKey,
+} from "./controllers/index"
+
+const jwtHelper = buildJwtHelper()
+
 const app = express()
 
-import passwordHelper from "./utils/passwordHelper"
-
 app.use(cors())
+app.use(express.json())
 
-app.get("/", (req, res) => {
-  passwordHelper.hash("password").then(hash => {
-    passwordHelper.verify(hash, "password").then(verify => {
-      res.status(200).send("Hello, World!\n" + hash + "\n" + verify)
-    })
-  })
-})
+
+app.post("/user/create", callback(CreateUser))
+app.post("/user/authorize", callback(AuthorizeUser))
+app.post("/user/refresh", callback(RefreshToken))
+
+app.post("/key/create", applyMiddleware(auth, callback(CreateKey)))
+
+// TODO: use proper middleware
+function applyMiddleware(middleware, callback) {
+  return (req, res, next) => {
+    req = middleware(req, res, next)
+    callback(req, res, next)
+  }
+}
+
+function auth(req, res) {
+  try {
+    const jwt = req.headers.authorization.split("Bearer ")[1]
+    const { uuid, email } = jwtHelper.decode(jwt)
+    req.context = {}
+    req.context.uuid = uuid
+    req.context.email = email
+    return req
+  } catch (error) {
+    res.status(401).send({ success: false, message: "Invalid authorization" })
+  }
+}
 
 export default app
