@@ -1,14 +1,15 @@
 import { v4 as uuidv4, validate as uuidValidate } from "uuid"
 
-function generate() {
-  return uuidv4()
-}
+export default function () {
+  return Object.freeze({
+    generate,
+    validate
+  })
 
-function validate(uuid) {
-  return uuidValidate(uuid)
-}
-
-export default {
-  generate,
-  validate
+  function generate() {
+    return uuidv4()
+  }
+  function validate(uuid) {
+    return uuidValidate(uuid)
+  }
 }

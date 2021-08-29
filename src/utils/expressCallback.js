@@ -1,4 +1,4 @@
-export default function makeExpressCallback(controller) {
+export default function (controller) {
   return (req, res) => {
     const httpRequest = {
       body: req.body,
@@ -7,6 +7,7 @@ export default function makeExpressCallback(controller) {
       ip: req.ip,
       method: req.method,
       path: req.path,
+      context: req.context,
       headers: {
         'Content-Type': req.get('Content-Type'),
         Referer: req.get('referer'),
