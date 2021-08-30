@@ -12,3 +12,9 @@ Quando um usuário é registrado, ele recebe um token e um refresh token. O toke
 	* Faz a request
 
 ![Authentication Service_210829_215957](https://user-images.githubusercontent.com/23709916/131348522-0ba85010-6a4e-4a13-82bb-f3dcca8ce522.jpg)
+## Development
+
+1. Crie um arquivo com as variáveis de ambiente `.env` baseado no `.env.example`
+2. Inicie os containers com `docker-compose up -d`
+3. Rode as migrations do BD com `npx sequelize-cli db:migrate`
+4. Desenvolva!
