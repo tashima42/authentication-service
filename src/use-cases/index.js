@@ -14,7 +14,7 @@ const jwtHelper = buildJwtHelper()
 
 const createUser = buildCreateUser({ User, Key, userRepository, keyRepository, jwtHelper, passwordHelper })
 const authorizeUser = buildAuthorizeUser({ Key, keyRepository, userRepository, passwordHelper, jwtHelper })
-const refreshToken = buildRefreshToken({ keyRepository, userRepository, jwtHelper })
+const refreshToken = buildRefreshToken({ Key, keyRepository, userRepository, jwtHelper })
 const createKey = buildCreateKey({ Key, keyRepository })
 
 export {
