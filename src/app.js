@@ -13,17 +13,20 @@ import {
 
 const jwtHelper = buildJwtHelper()
 
+
 const app = express()
 
 app.use(cors())
 app.use(express.json())
 
-
+app.use("/public", express.static('src/public'))
 app.post("/user/create", callback(CreateUser))
 app.post("/user/authorize", callback(AuthorizeUser))
 app.post("/user/refresh", callback(RefreshToken))
 
 app.post("/key/create", applyMiddleware(auth, callback(CreateKey)))
+
+
 
 // TODO: use proper middleware
 function applyMiddleware(middleware, callback) {
@@ -47,3 +50,10 @@ function auth(req, res) {
 }
 
 export default app
+
+app.post('/',(req,res)=>{
+  if(req.body.password == password && req.body.username == username){
+    console.log(req.body)
+  }
+  return res.status(200)
+})

@@ -38,5 +38,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize, // We need to pass the connection instance
     modelName: 'Key' // We need to choose the model name
   })
-  return Key;
+  //Key.sync()
+  return Key; 
 };
