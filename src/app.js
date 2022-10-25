@@ -51,9 +51,3 @@ function auth(req, res) {
 
 export default app
 
-app.post('/',(req,res)=>{
-  if(req.body.password == password && req.body.username == username){
-    console.log(req.body)
-  }
-  return res.status(200)
-})
