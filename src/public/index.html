@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body{
+            font-family: Arial;
+            background-image: linear-gradient(45deg, cyan,yellow);
+        }
+        .login-box{
+            background-color: rgba(0,0,0,0.8);
+            position: absolute;
+            padding: 80px;
+            border-radius: 10px;
+            margin-top: 10%;
+            
+        }
+        h1{
+            color:white;
+            text-align: center;
+            
+        }
+        grid{
+            display:grid;
+            justify-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        input{
+            padding: 10px;
+            border: none;
+            outline: none;
+            font-size: 15px;
+        }
+        button{
+            background-color: orange;
+            padding: 15px;
+            border-radius: 10px;
+            width: 100%;
+            color:white;
+            border:none
+        }
+        button:hover{
+            cursor:pointer
+        }
+        #texto{
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body class="container">
+    <grid>
+
+    <div class='login-box'>
+    <div class="login-header">
+        <div id="texto">
+        <h1>Login</h1>
+        </div>
+        <input type='text' id="username" placeholder="Email">
+        <br><br>
+        <input type="password" id="password" placeholder="Senha">
+        <br><br>
+        <button class="btn" onclick="authorize()">Enviar</button>
+    </div>
+</div>
+  </div>
+
+    </grid>
+    <script>
+    function authorize() {
+      const username = document.getElementById("username").value
+      const password = document.getElementById("password").value
+
+          fetch('/user/authorize', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              email: username,
+              password: password,
+            })
+          }).then((response)=>{
+            return response.json();
+          }).then((data) => {
+            console.log(data)
+          })
+      }
+  </script>
+</body>
+</html>

@@ -31,7 +31,7 @@ export default function ({ User, Key, userRepository, keyRepository, jwtHelper, 
 
       const token = jwtHelper.sign({ uuid: createdUser.uuid, email })
       const refreshToken = createdOpaqueKey.key
-
+ 
       return {
         success: true,
         createdUser: {
@@ -40,7 +40,9 @@ export default function ({ User, Key, userRepository, keyRepository, jwtHelper, 
           refreshToken,
         }
       }
+   
     } catch (error) {
+      console.log(error)
       return {
         success: false,
         message: error
